@@ -23,7 +23,7 @@ From Site
 Join campground on site.campground_id = campground.campground_id
 Join park on park.park_id = campground.park_id
 Join reservation on reservation.site_id = site.site_id
-Where from_date >= '2020-06-20' and to_date <= '2020-07-10' and site.site_id = 30
+Where from_date >= '2020-06-20' and to_date <= '2020-07-10' and campground.campground_id = 2
 
 --
 
