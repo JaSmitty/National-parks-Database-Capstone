@@ -16,7 +16,7 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
-        public IList<Campground> GetCampgroundByParkName(int park_ID)
+        public IList<Campground> GetCampgroundByParkName(int park_Id)
         {
             List<Campground> campgrounds = new List<Campground>();
 
@@ -26,8 +26,9 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("Select * from campground c join park p on p.park_id = c.park_id where p.park_id = @park_id", conn);
-                    cmd.Parameters.Add("park_id", park_ID);
+                    SqlCommand cmd = new SqlCommand("Select * from campground where park_id = @park_id", conn);
+                    cmd.Parameters.AddWithValue("@park_id", park_Id);
+
                     SqlDataReader rdr = cmd.ExecuteReader();
 
                     while (rdr.Read())
