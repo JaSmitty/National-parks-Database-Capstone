@@ -11,7 +11,7 @@ namespace Capstone.Models
         public string Location { get; set; }
         public DateTime Establish_Date { get; set; }
         public int Area { get; set; }
-        public string Vistors { get; set; }
+        public int Vistors { get; set; }
         public string Description { get; set; }
 
         public override string ToString()
