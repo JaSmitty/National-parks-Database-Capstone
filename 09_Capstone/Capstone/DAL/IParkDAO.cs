@@ -9,8 +9,7 @@ namespace Capstone.DAL
     {
         IList<Park> GetParks();
 
-        Park GetInfoByName(string name);
-
+        Park GetInfoById(int park_Id);
 
 
 

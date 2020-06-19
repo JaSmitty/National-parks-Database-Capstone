@@ -23,7 +23,7 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * from park", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT * from park order by name", conn);
 
                     SqlDataReader rdr = cmd.ExecuteReader();
 
@@ -58,7 +58,7 @@ namespace Capstone.DAL
             return park;
         }
 
-        public Park GetInfoByName(string name) 
+        public Park GetInfoById(int park_Id) 
         {
             Park park = new Park();
             try
@@ -67,9 +67,9 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * from park where name = @name", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT * from park where park_id = @park_id", conn);
 
-                    cmd.Parameters.AddWithValue("@name", name);
+                    cmd.Parameters.AddWithValue("@park_id", park_Id);
                     SqlDataReader rdr = cmd.ExecuteReader();
                     
 

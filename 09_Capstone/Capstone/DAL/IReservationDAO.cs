@@ -10,6 +10,6 @@ namespace Capstone.DAL
         //Reservation GetReservation(int reservation_ID);     IF WE WANT TO
 
 
-        int MakeReservation(int siteID, string arrivalDate, string departureDate);
+        int MakeReservation(Reservation reservation);
     }
 }
