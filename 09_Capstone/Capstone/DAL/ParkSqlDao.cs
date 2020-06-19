@@ -6,10 +6,10 @@ using System.Data.SqlClient;
 
 namespace Capstone.DAL
 {
-    public class ParkSqlDao :IParkDAO 
+    public class ParkSqlDAO :IParkDAO 
     {
         private string connectionString;
-        public ParkSqlDao(string dbconnectionString)
+        public ParkSqlDAO(string dbconnectionString)
         {
             connectionString = dbconnectionString;
         }
