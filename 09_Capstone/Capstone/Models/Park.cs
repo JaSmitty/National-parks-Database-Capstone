@@ -16,7 +16,8 @@ namespace Capstone.Models
 
         public override string ToString()
         {
-            return $"{Park_Id} {Name} {Location} {Establish_Date} {Area} {Vistors} {Description}";
+            return $"{Park_Id, 10}  {Name, -10} \n {Location, 30} {Establish_Date.ToString("M/d/yyyy"), -10} \n {Area, 20} {Vistors, -10} {Description, 10:N0}";
         }
+
     }
 }

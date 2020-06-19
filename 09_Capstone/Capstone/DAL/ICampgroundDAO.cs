@@ -5,7 +5,7 @@ using Capstone.Models;
 
 namespace Capstone.DAL
 {
-    interface ICampgroundDAO
+    public interface ICampgroundDAO
     {
 
         IList<Campground> GetCampgroundByParkName(int park_Id);

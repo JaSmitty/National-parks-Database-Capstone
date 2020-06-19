@@ -5,7 +5,7 @@ using Capstone.Models;
 
 namespace Capstone.DAL
 {
-    interface ISiteDAO
+    public interface ISiteDAO
     {
         IList<Site> ReturnAvailibleSites(int campgroundID, string arrivalDate, string departureDate);
     }

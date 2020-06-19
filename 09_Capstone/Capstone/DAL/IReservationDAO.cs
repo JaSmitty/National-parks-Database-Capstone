@@ -5,7 +5,7 @@ using Capstone.Models;
 
 namespace Capstone.DAL
 {
-    interface IReservationDAO
+    public interface IReservationDAO
     {
         //Reservation GetReservation(int reservation_ID);     IF WE WANT TO
 

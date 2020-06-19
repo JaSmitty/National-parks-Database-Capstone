@@ -92,10 +92,5 @@ namespace Capstone.Tests
         {
 
         }
-        [TestMethod]
-        public void MakeReservationTest()
-        {
-            //Might not be able to test this? 
-        }
     }
 }

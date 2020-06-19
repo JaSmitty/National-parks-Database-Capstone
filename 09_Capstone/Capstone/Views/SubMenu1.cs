@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Capstone.DAL;
+using Capstone.Models;
+using System;
 using System.Collections.Generic;
 
 namespace CLI
@@ -6,23 +8,21 @@ namespace CLI
     /// <summary>
     /// A sub-menu 
     /// </summary>
-    public class SubMenu1 : CLIMenu
+    public class SubMenu1 : MainMenu
     {
         // Store any private variables here....
 
-        /// <summary>
-        /// Constructor adds items to the top-level menu
-        /// </summary>
-        public SubMenu1(/** Variables may be passed in... ***/) :
-            base("Sub-Menu 1")
+        private Park Park;
+        public SubMenu1(Park park, ICampgroundDAO campgroundDAO, IParkDAO parkDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO) :
+            base(campgroundDAO, parkDAO, siteDAO, reservationDAO)
         {
-            // Store any values passed in....
+            this.Park = park;
         }
 
         protected override void SetMenuOptions()
         {
-            this.menuOptions.Add("1", "Option 1");
-            this.menuOptions.Add("2", "Do Option 2 and return to Main");
+            this.menuOptions.Add("1", "View campground");
+            this.menuOptions.Add("2", "Search for Reservation");
             this.menuOptions.Add("B", "Back to Main Menu");
             this.quitKey = "B";
         }
@@ -37,12 +37,12 @@ namespace CLI
         {
             switch (choice)
             {
-                case "1": // Do whatever option 1 is
-                    WriteError("Not yet implemented");
+                case "1": 
+                    //GetCampgroundByParkName
                     Pause("");
                     return true;
-                case "2": // Do whatever option 2 is
-                    WriteError("When this option is complete, we will exit this submenu by returning false from the ExecuteSelection method.");
+                case "2":
+                    
                     Pause("");
                     return false;
             }
