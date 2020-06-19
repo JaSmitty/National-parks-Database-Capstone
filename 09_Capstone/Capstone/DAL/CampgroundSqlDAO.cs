@@ -16,7 +16,7 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
-        public IList<Campground> GetCampgroundByParkName(int park_Id)
+        public IList<Campground> GetCampgroundByParkId(int park_Id)
         {
             List<Campground> campgrounds = new List<Campground>();
 

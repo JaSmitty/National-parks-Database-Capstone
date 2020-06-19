@@ -13,9 +13,31 @@ namespace Capstone.Models
         public int Open_To_Mm { get; set; }
         public decimal Daily_Fee { get; set; }
 
+        public string MonthNumberToName(int monthCoverter)
+        {
+            Dictionary<int, string> monthDictionary = new Dictionary<int, string>()
+            {
+                { 1, "January" },
+                { 2, "February" },
+                { 3, "March" },
+                { 4, "April" },
+                { 5, "May" },
+                { 6, "June" },
+                { 7, "July" },
+                { 8, "August" },
+                { 9, "September" },
+                { 10, "October" },
+                { 11, "November" },
+                { 12, "December" },
+            };
+
+            return monthDictionary[monthCoverter];
+
+        }
+
         public override string ToString()
         {
-            return $"{Campground_Id} {Park_Id} {Name} {Open_From_Mm} {Open_To_Mm} {Daily_Fee}";
+            return $"{Campground_Id} {Park_Id} {Name} {MonthNumberToName(Open_From_Mm)} {MonthNumberToName(Open_To_Mm)} {Daily_Fee}";
         }
     }
 }

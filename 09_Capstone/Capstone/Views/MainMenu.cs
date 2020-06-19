@@ -52,18 +52,19 @@ namespace CLI
         {
             switch (choice)
             {
-                case "1": 
+                case "1":
+                    Console.Clear();
                     ListParks();
+                    int parkID = GetInteger("Select a Park for Further Details");
+                    Park park = ParkDAO.GetInfoById(parkID);
+                    Console.WriteLine(park);
                     Pause("");
                     return true;
                 case "2":
-                    int parkID = GetInteger("Please enter ParkID: ");
-                    Park park = ParkDAO.GetInfoById(parkID);
-                    SubMenu1 sm = new SubMenu1(park, CampgroundDAO, ParkDAO, SiteDAO, ReservationDAO);
+                    SubMenu1 sm = new SubMenu1(CampgroundDAO, ParkDAO, SiteDAO, ReservationDAO);
                     sm.Run();
                     Pause("");
                     return true;
-                  
             }
             return true;
         }
@@ -82,14 +83,16 @@ namespace CLI
         }
 
 
-        private void ListParks()
+        public void ListParks()
         {
             IList<Park> parks = ParkDAO.GetParks();
 
             foreach (Park park in parks)
             {
-                Console.WriteLine(park);
+                Console.WriteLine($"{park.Park_Id}) {park.Name}");
             }
         }
+
+
     }
 }

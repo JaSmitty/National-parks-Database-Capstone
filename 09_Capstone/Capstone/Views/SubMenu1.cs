@@ -2,6 +2,7 @@
 using Capstone.Models;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace CLI
 {
@@ -12,13 +13,13 @@ namespace CLI
     {
         // Store any private variables here....
 
-        private Park Park;
-        public SubMenu1(Park park, ICampgroundDAO campgroundDAO, IParkDAO parkDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO) :
+        
+        public SubMenu1(ICampgroundDAO campgroundDAO, IParkDAO parkDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO) :
             base(campgroundDAO, parkDAO, siteDAO, reservationDAO)
         {
-            this.Park = park;
-        }
 
+        }
+        
         protected override void SetMenuOptions()
         {
             this.menuOptions.Add("1", "View campground");
@@ -37,12 +38,15 @@ namespace CLI
         {
             switch (choice)
             {
-                case "1": 
-                    //GetCampgroundByParkName
+                case "1":
+                    Console.Clear();
+                    ListParks();
+                    int parkReservation = GetInteger("Search for Campground By Park: ");
+                    GetCampgrounds(parkReservation);
+                    Park parkCampground = ParkDAO.GetInfoById(parkReservation);
                     Pause("");
                     return true;
                 case "2":
-                    
                     Pause("");
                     return false;
             }
@@ -58,7 +62,6 @@ namespace CLI
         {
             base.AfterDisplayMenu();
             SetColor(ConsoleColor.Cyan);
-            Console.WriteLine("Display some data here, AFTER the sub-menu is shown....");
             ResetColor();
         }
 
@@ -68,6 +71,17 @@ namespace CLI
             Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Sub-Menu 1"));
             ResetColor();
         }
+
+        private void GetCampgrounds(int park_id)
+        {
+            IList<Campground> campgrounds = CampgroundDAO.GetCampgroundByParkId(park_id);
+
+            foreach (Campground campground in campgrounds)
+            {
+                Console.WriteLine(campground);
+            }
+        }
+
 
     }
 }

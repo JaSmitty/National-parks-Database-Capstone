@@ -11,7 +11,5 @@ namespace Capstone.DAL
 
         Park GetInfoById(int park_Id);
 
-
-
     }
 }
