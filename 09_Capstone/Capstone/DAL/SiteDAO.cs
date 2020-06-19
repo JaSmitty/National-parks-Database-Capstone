@@ -25,17 +25,27 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
+                    string helper = "Select top 5 * from site" +
+                                    "Left join (Select site_id from reservation" +
+                                    "where (from_date between @start_Date and @end_Date)" +
+                                    "or (to_date between @start_Date and @end_Date)" +
+                                    "or (@start_Date between from_date and to_date)" +
+                                    "or (@end_Date between from_date and to_date))" +
+                                    "as f on f.site_id = site.site_id" +
+                                    "where f.site_id is null and @campground_id = site.campground_id";
 
+                    SqlCommand cmd = new SqlCommand(helper, conn);
 
-                    SqlCommand cmd = new SqlCommand("Select * from site where campgroundID = @campground_", conn);
-                    cmd.Parameters.AddWithValue("@park_id", park_Id);
+                    cmd.Parameters.AddWithValue("@start_Date", arrivalDate);
+                    cmd.Parameters.AddWithValue("@end_date", departureDate);
+                    cmd.Parameters.AddWithValue("@campground_id", campgroundID);
 
                     SqlDataReader rdr = cmd.ExecuteReader();
 
                     while (rdr.Read())
                     {
-                        Campground campground = ConvertReadertoCampground(rdr);
-                        campgrounds.Add(campground);
+                        Site site = ConvertReadertoSite(rdr);
+                        AvailibleSites.Add(site);
                     }
                 }
             }
@@ -45,31 +55,22 @@ namespace Capstone.DAL
                 Console.WriteLine(ex.Message);
                 throw;
             }
-            return campgrounds;
+            return AvailibleSites;
         }
 
-        private IList<Site> SiteHelper(List<Reservation> reservationNotAvailible, List<Site> sitesSelected)
+        private Site ConvertReadertoSite(SqlDataReader rdr)
         {
-            List<Site> availibleSites = new List<Site>();
+            Site site = new Site();
 
-            foreach (Site site in sitesSelected)
-            {
-                foreach (Reservation reserve in reservationNotAvailible)
-                {
-                    if (site.Site_Id == reserve.Site_Id)
-                    {
-                        
-                    }
-                    else
-                    {
-                        availibleSites.Add(site);
-                    }
-                }
-            }
+            site.Site_Id = Convert.ToInt32(rdr["site_id"]);
+            site.Campground_Id = Convert.ToInt32(rdr["campground_id"]);
+            site.Site_Number = Convert.ToInt32(rdr["site_number"]);
+            site.Max_Occupancy = Convert.ToInt32(rdr["max_occupancy"]);
+            site.Accessible = Convert.ToInt32(rdr["Accessible"]);
+            site.Max_Rv_Length = Convert.ToInt32(rdr["max_rv_length"]);
+            site.Utilities = Convert.ToInt32(rdr["Utilities"]);
 
-
-            return availibleSites;
+            return site;
         }
-
     }
 }
