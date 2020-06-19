@@ -64,7 +64,7 @@ namespace Capstone.Tests
             //Arrange
 
             //Create a department sql dao
-            ParkSqlDAO dao = new ParkSqlDAO(connectionString);
+            ParkSqlDao dao = new ParkSqlDao(connectionString);
 
             //Act
             IList<Park> parks = dao.GetParks();
@@ -79,7 +79,7 @@ namespace Capstone.Tests
             //Arrange
 
             //Create a department sql dao
-            ParkSqlDAO dao = new ParkSqlDAO(connectionString);
+            ParkSqlDao dao = new ParkSqlDao(connectionString);
 
             //Act
             Park park = dao.GetInfoById(testId);
