@@ -13,7 +13,7 @@ namespace Capstone.Tests
     public class CampgroundDBTests
     {
         
-        private string connectionString = @"Server=.\SQLEXPRESS; Database =EmployeeDB; Trusted_Connection=True;";
+        private string connectionString = @"Server=.\SQLEXPRESS; Database =npcampground; Trusted_Connection=True;";
         private TransactionScope transaction;
 
         private int testParkId1;
@@ -30,23 +30,23 @@ namespace Capstone.Tests
         {
             transaction = new TransactionScope();
 
-            string sqlScript = File.ReadAllText(connectionString);
+            string sqlScript = File.ReadAllText("TestData.sql");
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sqlScript, conn);
                 SqlDataReader rdr = cmd.ExecuteReader();
-                if (rdr.Read()) { }
+                if (rdr.Read()) 
                 {
-                    testParkId1 = Convert.ToInt32(rdr["@TestParkId1"]);
-                    testParkId2 = Convert.ToInt32(rdr["@TestParkId2"]);
-                    testCampground1 = Convert.ToInt32(rdr["@TestCampground1"]);
-                    testCampground2 = Convert.ToInt32(rdr["@TestCampground2"]);
-                    testSite1 = Convert.ToInt32(rdr["@TestSite1"]);
-                    testSite2 = Convert.ToInt32(rdr["@TestSite2"]);
-                    testReservation1 = Convert.ToInt32(rdr["@TestReservation1"]);
-                    testReservation2 = Convert.ToInt32(rdr["@TestReservation2"]);
+                    testParkId1 = Convert.ToInt32(rdr["TestParkId1"]);
+                    testParkId2 = Convert.ToInt32(rdr["TestParkId2"]);
+                    testCampground1 = Convert.ToInt32(rdr["TestCampground1"]);
+                    testCampground2 = Convert.ToInt32(rdr["TestCampground2"]);
+                    testSite1 = Convert.ToInt32(rdr["TestSite1"]);
+                    testSite2 = Convert.ToInt32(rdr["TestSite2"]);
+                    testReservation1 = Convert.ToInt32(rdr["TestReservation1"]);
+                    testReservation2 = Convert.ToInt32(rdr["TestReservation2"]);
                 }
             }
         }
@@ -64,28 +64,28 @@ namespace Capstone.Tests
             //Arrange
 
             //Create a department sql dao
-            ParkSqlDao dao = new ParkSqlDao(connectionString);
+            ParkSqlDAO dao = new ParkSqlDAO(connectionString);
 
             //Act
             IList<Park> parks = dao.GetParks();
 
             //Assert
-            Assert.AreEqual(3, parks.Count);
+            Assert.AreEqual(2, parks.Count);
         }
 
         [TestMethod]
-        public void GetInfoByIdTest(int testId)
+        public void GetInfoByIdTest()
         {
             //Arrange
-
+           
             //Create a department sql dao
-            ParkSqlDao dao = new ParkSqlDao(connectionString);
+            ParkSqlDAO dao = new ParkSqlDAO(connectionString);
 
             //Act
-            Park park = dao.GetInfoById(testId);
+            Park park = dao.GetInfoById(testParkId1);
 
             //Assert
-            Assert.AreEqual(testId, 1);
+            Assert.IsNotNull(park.Park_Id);
         }
         [TestMethod]
         public void ReturnAvailableSitesTest()
@@ -95,7 +95,7 @@ namespace Capstone.Tests
         [TestMethod]
         public void MakeReservationTest()
         {
-
+            //Might not be able to test this? 
         }
     }
 }
