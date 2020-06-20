@@ -9,9 +9,9 @@ namespace Capstone.Models
         public int Reservation_Id { get; set; }
         public int Site_Id { get; set; }
         public int Name { get; set; }
-        public int From_Date { get; set; }
-        public int To_Date { get; set; }
-        public int Create_Date { get; set; }
+        public DateTime From_Date { get; set; }
+        public DateTime To_Date { get; set; }
+        public DateTime Create_Date { get; set; } //not sure if string or DateTime?
 
         public override string ToString()
         {

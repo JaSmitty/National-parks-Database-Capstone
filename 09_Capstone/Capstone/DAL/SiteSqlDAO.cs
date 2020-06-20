@@ -15,9 +15,9 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
-        public IList<Site> ReturnAvailibleSites(int campgroundID, string arrivalDate, string departureDate)
+        public IList<Site> ReturnAvailableSites(int campgroundID, DateTime arrivalDate, DateTime departureDate)
         {
-            List<Site> AvailibleSites = new List<Site>();
+            List<Site> availableSites = new List<Site>();
 
             try
             {
@@ -45,7 +45,7 @@ namespace Capstone.DAL
                     while (rdr.Read())
                     {
                         Site site = ConvertReadertoSite(rdr);
-                        AvailibleSites.Add(site);
+                        availableSites.Add(site);
                     }
                 }
             }
@@ -55,7 +55,7 @@ namespace Capstone.DAL
                 Console.WriteLine(ex.Message);
                 throw;
             }
-            return AvailibleSites;
+            return availableSites;
         }
 
         private Site ConvertReadertoSite(SqlDataReader rdr)

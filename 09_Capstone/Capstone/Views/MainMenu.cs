@@ -71,9 +71,11 @@ namespace CLI
                         {
                             Console.Clear();
                             SetColor(ConsoleColor.White);
-                            Console.WriteLine("Sorry that park isn't in the list!");
+                            Console.WriteLine("Sorry that park isn't in the list! Press enter to return to the previous screen");
                             ResetColor();
-                            break;
+                            Console.ReadLine();
+                            Console.Clear();
+
                         }
                         else if (parkID == park.Park_Id)
                         {

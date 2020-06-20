@@ -42,9 +42,14 @@ namespace CLI
                     Console.Clear();
                     PrintHeader();
                     ListParks();
-                    int parkReservation = GetInteger("Search for Campground By Park: ");
-                    GetCampgrounds(parkReservation);
-                    //Park parkCampground = ParkDAO.GetInfoById(parkReservation); This line isn't needed
+                    int reservationParkId = GetInteger("Search for Campground By Park: ");
+                    GetCampgrounds(reservationParkId);
+                    //Park parkCampground = ParkDAO.GetInfoById(reservationParkId); 
+                    int campgroundId = GetInteger("Which campground (enter 0 to cancel)?   ");
+                    DateTime arrivalDate =DateTime.Parse(GetString("What is the arrival date? (mm/dd/yyyy)  "));
+                    DateTime departureDate = DateTime.Parse(GetString("What is the departure date? (mm/dd/yyyy)  "));
+                    GetAvailableSites(campgroundId, arrivalDate, departureDate);
+
                     Pause("");
                     return true;
                 case "2":
@@ -83,7 +88,19 @@ namespace CLI
                 Console.WriteLine(campground);
             }
         }
+        private void GetAvailableSites(int campgroundId, DateTime arrivalDate, DateTime departureDate)
+        {
+            IList<Site> sites = SiteDAO.ReturnAvailableSites(campgroundId, arrivalDate, departureDate);
+
+            foreach (Site site in sites)
+            {
+                Console.WriteLine(site);
+            }
+        }
+
 
 
     }
+
+   
 }

@@ -9,7 +9,7 @@ namespace Capstone.Models
         public int Campground_Id { get; set; }
         public int Park_Id  { get; set; }
         public string Name { get; set; }
-        public int Open_From_Mm { get; set; } //TODO convert numerical values into Date strings
+        public int Open_From_Mm { get; set; } 
         public int Open_To_Mm { get; set; }
         public decimal Daily_Fee { get; set; }
 
@@ -37,7 +37,7 @@ namespace Capstone.Models
 
         public override string ToString()
         {
-            return $"{Campground_Id} |Name: {Name,-20} |  Open: {MonthNumberToName(Open_From_Mm)} -- {MonthNumberToName(Open_To_Mm)} |  Daily Fee: {Daily_Fee:C}|";
+            return $" ID: {Campground_Id} |Name: {Name,-20} |  Open: {MonthNumberToName(Open_From_Mm)} -- {MonthNumberToName(Open_To_Mm)} |  Daily Fee: {Daily_Fee:C}|";
         }
     }
 }
