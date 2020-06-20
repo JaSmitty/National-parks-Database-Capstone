@@ -179,6 +179,15 @@ INSERT INTO reservation (site_id, name, from_date, to_date) VALUES (20, 'Zukerbe
 INSERT INTO reservation (site_id, name, from_date, to_date) VALUES (24, 'Musk Family Reservation', GETDATE()+4, GETDATE()+10);
 INSERT INTO reservation (site_id, name, from_date, to_date) VALUES (24, 'Buffett Family Reservation', GETDATE()-4, GETDATE());
 
+--Use to test no reservation found **********************************************
+
+INSERT INTO reservation (site_id, name, from_date, to_date) VALUES (21, 'Zukerberg Family Reservation', GETDATE()+1, GETDATE()+4);
+INSERT INTO reservation (site_id, name, from_date, to_date) VALUES (22, 'Musk Family Reservation', GETDATE()+1, GETDATE()+4);
+INSERT INTO reservation (site_id, name, from_date, to_date) VALUES (23, 'Buffett Family Reservation', GETDATE()+1, GETDATE()+4);
+INSERT INTO reservation (site_id, name, from_date, to_date) VALUES (24, 'Zukerberg Family Reservation', GETDATE()+1, GETDATE()+4);
+
+
+
 -- Acadia Schoodic Woods Sites (25 - 36)
 INSERT INTO reservation (site_id, name, from_date, to_date) VALUES (25, 'Satya Nedella', GETDATE()+3, GETDATE()+10);
 INSERT INTO reservation (site_id, name, from_date, to_date) VALUES (25, 'Scott Gutherie', GETDATE()+10, GETDATE()+14);

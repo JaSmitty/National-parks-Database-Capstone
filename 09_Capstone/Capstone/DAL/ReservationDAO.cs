@@ -31,7 +31,7 @@ namespace Capstone.DAL
                     cmd.Parameters.AddWithValue("@name", reservation.Name);
                     cmd.Parameters.AddWithValue("@start_date", reservation.From_Date);
                     cmd.Parameters.AddWithValue("@end_date", reservation.To_Date);
-                    cmd.Parameters.AddWithValue("GETDATE", reservation.Create_Date);
+                    //cmd.Parameters.AddWithValue("GETDATE", reservation.Create_Date);
 
                     reservationId = Convert.ToInt32(cmd.ExecuteScalar());
 

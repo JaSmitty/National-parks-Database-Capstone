@@ -48,7 +48,17 @@ namespace CLI
                     int campgroundId = GetInteger("Which campground (enter 0 to cancel)?   ");
                     string arrivalDate = GetString("What is the arrival date? (mm/dd/yyyy)  ");
                     string departureDate = GetString("What is the departure date? (mm/dd/yyyy)  ");
+
+                    
+
                     GetAvailableSites(campgroundId, arrivalDate, departureDate);
+                    int siteReserved = GetInteger("Which site would you like to reserve?: ");
+                    string reservationName = GetString("What should the name of the reservation be under?");
+
+                    int confirmationNumber = MakingTheRes(reservationName, siteReserved, arrivalDate, departureDate);
+
+                    Console.WriteLine($"The reservation has been made!");
+                    Console.WriteLine($"Your confirmationID is :{confirmationNumber}");
 
                     Pause("");
                     return true;
@@ -92,13 +102,33 @@ namespace CLI
         {
             IList<Site> sites = SiteDAO.ReturnAvailableSites(campgroundId, arrivalDate, departureDate);
 
+            if (sites.Count == 0)
+            {
+                Console.WriteLine("Sorry no sites were found!");
+
+            }
+
             foreach (Site site in sites)
             {
                 Console.WriteLine(site);
             }
         }
 
+        private int MakingTheRes(string reservationName, int siteReserved, string arrivalDate, string departureDate)
+        {
+            Reservation newReservation = new Reservation();
+            newReservation.Name = reservationName;
+            newReservation.Site_Id = siteReserved;
+            newReservation.From_Date = arrivalDate;
+            newReservation.To_Date = departureDate;
+            //newReservation.Create_Date = DateTime.Now.ToString();
 
+            int confirmationNumber = ReservationDAO.MakeReservation(newReservation);
+
+            return confirmationNumber;
+        }
+
+        //private int Get
 
     }
 

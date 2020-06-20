@@ -6,12 +6,26 @@ namespace Capstone.Models
 {
     public class Reservation
     {
+        //public void Reservation(int siteID, string name, string fromDate, string toDate)
+        //{
+        //    this.Site_Id = siteID;
+        //    this.Name = name;
+        //    this.From_Date = fromDate;
+        //    this.To_Date = toDate;
+
+        //}
+
+
+
+
         public int Reservation_Id { get; set; }
         public int Site_Id { get; set; }
-        public int Name { get; set; }
-        public DateTime From_Date { get; set; }
-        public DateTime To_Date { get; set; }
-        public DateTime Create_Date { get; set; } //not sure if string or DateTime?
+        public string  Name { get; set; }
+        public string From_Date { get; set; }
+        public string To_Date { get; set; }
+        public  string Create_Date { get; set; } //not sure if string or DateTime?
+
+        
 
         public override string ToString()
         {

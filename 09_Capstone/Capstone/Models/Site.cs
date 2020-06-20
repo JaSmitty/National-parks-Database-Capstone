@@ -14,9 +14,9 @@ namespace Capstone.Models
         public int Max_Rv_Length { get; set; }
         public int Utilities { get; set; }
 
-        public override string ToString()
+        public override string ToString() // TODO Fix this formatting
         {
-            return $"{Site_Id} {Campground_Id} {Site_Number} {Max_Occupancy} {Accessible} {Max_Rv_Length} {Utilities}";
+            return $"SiteID: {Site_Id} CampgroundID: {Campground_Id} SiteNumber{Site_Number} Occupancy: {Max_Occupancy} Accesible: {Accessible} MaxRvLength{Max_Rv_Length} Utilities: {Utilities}";
         }
     }
 }
