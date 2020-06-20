@@ -16,7 +16,7 @@ namespace Capstone.Models
 
         public override string ToString() // TODO Fix this formatting
         {
-            return $"SiteID: {Site_Id} CampgroundID: {Campground_Id} SiteNumber{Site_Number} Occupancy: {Max_Occupancy} Accesible: {Accessible} MaxRvLength{Max_Rv_Length} Utilities: {Utilities}";
+            return $"SiteID: {Site_Id} Occupancy: {Max_Occupancy} Accesible: {Accessible} MaxRvLength{Max_Rv_Length} Utilities: {Utilities}";
         }
     }
 }
