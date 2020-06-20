@@ -46,8 +46,8 @@ namespace CLI
                     GetCampgrounds(reservationParkId);
                     //Park parkCampground = ParkDAO.GetInfoById(reservationParkId); 
                     int campgroundId = GetInteger("Which campground (enter 0 to cancel)?   ");
-                    DateTime arrivalDate =DateTime.Parse(GetString("What is the arrival date? (mm/dd/yyyy)  "));
-                    DateTime departureDate = DateTime.Parse(GetString("What is the departure date? (mm/dd/yyyy)  "));
+                    string arrivalDate = GetString("What is the arrival date? (mm/dd/yyyy)  ");
+                    string departureDate = GetString("What is the departure date? (mm/dd/yyyy)  ");
                     GetAvailableSites(campgroundId, arrivalDate, departureDate);
 
                     Pause("");
@@ -88,7 +88,7 @@ namespace CLI
                 Console.WriteLine(campground);
             }
         }
-        private void GetAvailableSites(int campgroundId, DateTime arrivalDate, DateTime departureDate)
+        private void GetAvailableSites(int campgroundId, string arrivalDate, string departureDate)
         {
             IList<Site> sites = SiteDAO.ReturnAvailableSites(campgroundId, arrivalDate, departureDate);
 

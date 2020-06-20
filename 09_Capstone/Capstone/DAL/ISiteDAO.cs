@@ -7,6 +7,6 @@ namespace Capstone.DAL
 {
     public interface ISiteDAO
     {
-        IList<Site> ReturnAvailableSites(int campgroundID, DateTime arrivalDate, DateTime departureDate);
+        IList<Site> ReturnAvailableSites(int campgroundID, string arrivalDate, string departureDate);
     }
 }

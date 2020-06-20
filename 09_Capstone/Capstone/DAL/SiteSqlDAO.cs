@@ -15,7 +15,7 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
-        public IList<Site> ReturnAvailableSites(int campgroundID, DateTime arrivalDate, DateTime departureDate)
+        public IList<Site> ReturnAvailableSites(int campgroundID, string arrivalDate, string departureDate)
         {
             List<Site> availableSites = new List<Site>();
 
@@ -25,19 +25,18 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
-                    string helper = "Select top 5 * from site" +
-                                    "Left join (Select site_id from reservation" +
-                                    "where (from_date between @start_Date and @end_Date)" +
-                                    "or (to_date between @start_Date and @end_Date)" +
-                                    "or (@start_Date between from_date and to_date)" +
-                                    "or (@end_Date between from_date and to_date))" +
-                                    "as f on f.site_id = site.site_id" +
-                                    "where f.site_id is null and @campground_id = site.campground_id";
+                    ////string helper = "Select top 5 * from site" +
+                    //                 "where site_id not in (Select site_id from reservation" +
+                    //                 "where(from_date between @start_Date and @end_Date)" +
+                    //                 "or(to_date between @start_Date and @end_Date)" +
+                    //                 "or(@start_Date between from_date and to_date)" +
+                    //                 "or(@end_Date between from_date and to_date)) and @campground_id = site.campground_id";
 
-                    SqlCommand cmd = new SqlCommand(helper, conn);
+                    SqlCommand cmd = new SqlCommand($"Select top 5 * from site where site_id not in (Select site_id from reservation where(from_date between @start_Date and @end_Date) or (to_date between @start_Date and @end_Date) or (@start_Date between from_date and to_date) or (@end_Date between from_date and to_date)) and @campground_id = site.campground_id", conn);
+
 
                     cmd.Parameters.AddWithValue("@start_Date", arrivalDate);
-                    cmd.Parameters.AddWithValue("@end_date", departureDate);
+                    cmd.Parameters.AddWithValue("@end_Date", departureDate);
                     cmd.Parameters.AddWithValue("@campground_id", campgroundID);
 
                     SqlDataReader rdr = cmd.ExecuteReader();
