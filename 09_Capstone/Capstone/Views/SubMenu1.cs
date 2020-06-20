@@ -54,8 +54,14 @@ namespace CLI
                         string departureDate = GetString("What is the departure date? (mm/dd/yyyy)  ");
 
 
+                        int siteCount = GetAvailableSites(campgroundId, arrivalDate, departureDate);
+                        if (siteCount == 0)
+                        {
+                            Console.WriteLine("Sorry, no sites were found!");
+                            Console.ReadLine();
+                            break;
+                        }
 
-                        GetAvailableSites(campgroundId, arrivalDate, departureDate);
                         int siteReserved = GetInteger("Which site would you like to reserve?: ");
                         string reservationName = GetString("What should the name of the reservation be under?");
 
@@ -65,9 +71,9 @@ namespace CLI
                         Console.WriteLine($"Your confirmationID is :{confirmationNumber}");
 
                         Pause("");
-                        return true;
                     }
-                case "2":
+                    return true;
+                    case "2":
                     
                     Pause("");
                     return false;
@@ -108,7 +114,10 @@ namespace CLI
             IList<Site> sites = SiteDAO.ReturnAvailableSites(campgroundId, arrivalDate, departureDate);
 
             int sitesCount = sites.Count;
-
+            if (sitesCount == 0)
+            {
+                return sitesCount;
+            }
             foreach (Site site in sites)
             {
                 Console.WriteLine(site);
@@ -130,7 +139,10 @@ namespace CLI
             return confirmationNumber;
         }
 
-        //private int Get
+        private int GetTotalStayLength(string arrivalDate, string departureDate)
+        {
+
+        }
 
     }
 
