@@ -22,8 +22,8 @@ namespace CLI
         
         protected override void SetMenuOptions()
         {
-            this.menuOptions.Add("1", "View campground");
-            this.menuOptions.Add("2", "Search for Reservation");
+            this.menuOptions.Add("1", "View campgrounds");
+            this.menuOptions.Add("2", "Search for availble reservations");
             this.menuOptions.Add("B", "Back to Main Menu");
             this.quitKey = "B";
         }
@@ -40,13 +40,15 @@ namespace CLI
             {
                 case "1":
                     Console.Clear();
+                    PrintHeader();
                     ListParks();
                     int parkReservation = GetInteger("Search for Campground By Park: ");
                     GetCampgrounds(parkReservation);
-                    Park parkCampground = ParkDAO.GetInfoById(parkReservation);
+                    //Park parkCampground = ParkDAO.GetInfoById(parkReservation); This line isn't needed
                     Pause("");
                     return true;
                 case "2":
+                    
                     Pause("");
                     return false;
             }
@@ -67,8 +69,8 @@ namespace CLI
 
         private void PrintHeader()
         {
-            SetColor(ConsoleColor.Magenta);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Sub-Menu 1"));
+            SetColor(ConsoleColor.Green);
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Reservations"));
             ResetColor();
         }
 

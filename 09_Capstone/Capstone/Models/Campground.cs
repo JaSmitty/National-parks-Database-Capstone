@@ -37,7 +37,7 @@ namespace Capstone.Models
 
         public override string ToString()
         {
-            return $"{Campground_Id} {Park_Id} {Name} {MonthNumberToName(Open_From_Mm)} {MonthNumberToName(Open_To_Mm)} {Daily_Fee}";
+            return $"{Campground_Id} |Name: {Name,-20} |  Open: {MonthNumberToName(Open_From_Mm)} -- {MonthNumberToName(Open_To_Mm)} |  Daily Fee: {Daily_Fee:C}|";
         }
     }
 }

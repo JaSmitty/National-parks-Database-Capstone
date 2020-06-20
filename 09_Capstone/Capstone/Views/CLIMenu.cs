@@ -250,8 +250,10 @@ namespace CLI
         /// <param name="message">Displays a message to the user and then waits for them to hit Return.</param>
         static public void Pause(string message)
         {
-            Console.Write(message + " Press Enter to continue.");
+            SetColor(ConsoleColor.Green);
+            Console.Write("\n" + message + "Press Enter to return to the main menu.");
             Console.ReadLine();
+            ResetColor();
         }
 
         static public void SetColor(ConsoleColor foregroundColor)

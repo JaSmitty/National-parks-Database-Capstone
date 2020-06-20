@@ -37,9 +37,11 @@ namespace CLI
         protected override void SetMenuOptions()
         {
             // A Sample menu.  Build the dictionary here
+            SetColor(ConsoleColor.White);
             this.menuOptions.Add("1", "View Parks");
             this.menuOptions.Add("2", "Make A Reservation");
             this.menuOptions.Add("Q", "Quit program");
+            ResetColor();
         }
 
         /// <summary>
@@ -54,12 +56,47 @@ namespace CLI
             {
                 case "1":
                     Console.Clear();
-                    ListParks();
-                    int parkID = GetInteger("Select a Park for Further Details");
-                    Park park = ParkDAO.GetInfoById(parkID);
-                    Console.WriteLine(park);
-                    Pause("");
-                    return true;
+                    while (true)
+                    {
+                        SetColor(ConsoleColor.Green);
+                        Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Parks"));
+                        ResetColor();
+
+                        SetColor(ConsoleColor.White);
+                        ListParks();
+                        ResetColor();
+                        int parkID = GetInteger("Select a Park for Further Details");
+                        Park park = ParkDAO.GetInfoById(parkID);
+                        if (parkID != park.Park_Id)
+                        {
+                            Console.Clear();
+                            SetColor(ConsoleColor.White);
+                            Console.WriteLine("Sorry that park isn't in the list!");
+                            ResetColor();
+                            break;
+                        }
+                        else if (parkID == park.Park_Id)
+                        {
+                            Console.Clear();
+                            SetColor(ConsoleColor.Green);
+                            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Parks"));
+                            ResetColor();
+                            
+                            SetColor(ConsoleColor.Green);
+                            Console.WriteLine($"------|{park.Name,-4}|------");
+                            SetColor(ConsoleColor.White);
+                            Console.WriteLine($"Location: {park.Location}");
+                            Console.WriteLine($"Established: {park.Establish_Date.ToString("M / d / yyyy")}");
+                            Console.WriteLine($"Area: {park.Area}");
+                            Console.WriteLine($"Annual Visitors: {park.Vistors}");
+                            Console.WriteLine(park.Description);
+                            ResetColor();
+                            break;
+                        }
+                    }
+                        Pause("");
+                        return true;
+                    
                 case "2":
                     SubMenu1 sm = new SubMenu1(CampgroundDAO, ParkDAO, SiteDAO, ReservationDAO);
                     sm.Run();
@@ -77,8 +114,8 @@ namespace CLI
 
         private void PrintHeader()
         {
-            SetColor(ConsoleColor.Yellow);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Main Menu"));
+            SetColor(ConsoleColor.Green);
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Parks & Reservations"));
             ResetColor();
         }
 
