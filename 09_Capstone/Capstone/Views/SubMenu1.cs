@@ -24,7 +24,7 @@ namespace CLI
         protected override void SetMenuOptions()
         {
             this.menuOptions.Add("1", "View campgrounds");
-            this.menuOptions.Add("2", "Search for availble reservations");
+            this.menuOptions.Add("2", "Search for a Reservation");
             this.menuOptions.Add("B", "Back to Main Menu");
             this.quitKey = "B";
         }
@@ -47,11 +47,13 @@ namespace CLI
                         PrintHeader();
                         ListParks();
                         int reservationParkId = GetInteger("Search for Campground By Park: ");
-                        GetCampgrounds(reservationParkId);
-                        //Park parkCampground = ParkDAO.GetInfoById(reservationParkId); 
-                        int campgroundId = GetInteger("Which campground (enter 0 to cancel)?   ");
                         string arrivalDate = GetString("What is the arrival date? (mm/dd/yyyy)  ");
                         string departureDate = GetString("What is the departure date? (mm/dd/yyyy)  ");
+                        int totalStay = GetTotalStayLength(arrivalDate, departureDate);
+                        GetCampgrounds(reservationParkId, totalStay);
+
+                        int campgroundId = GetInteger("Which campground (enter 0 to cancel)?   ");
+
 
 
                         int siteCount = GetAvailableSites(campgroundId, arrivalDate, departureDate);
@@ -74,7 +76,9 @@ namespace CLI
                     }
                     return true;
                     case "2":
-                    
+                    Console.Clear();
+                    int reserveID = GetInteger("Please enter the Confirmation number you recieved: ");
+                    GetReservation(reserveID);
                     Pause("");
                     return false;
             }
@@ -100,13 +104,14 @@ namespace CLI
             ResetColor();
         }
 
-        private void GetCampgrounds(int park_id)
+        private void GetCampgrounds(int park_id, int totalStay)
         {
             IList<Campground> campgrounds = CampgroundDAO.GetCampgroundByParkId(park_id);
 
             foreach (Campground campground in campgrounds)
             {
-                Console.WriteLine(campground);
+                decimal totalCost = (decimal)(totalStay) * campground.Daily_Fee;
+                Console.WriteLine($"{campground} Total Cost: {totalCost}");
             }
         }
         private int GetAvailableSites(int campgroundId, string arrivalDate, string departureDate)
@@ -141,7 +146,16 @@ namespace CLI
 
         private int GetTotalStayLength(string arrivalDate, string departureDate)
         {
+            DateTime depatTime = Convert.ToDateTime(departureDate);
+            DateTime arrivalTime = Convert.ToDateTime(arrivalDate);
+            int totalStay = Convert.ToInt32((depatTime - arrivalTime).TotalDays);
+            return totalStay;
+        }
 
+        private void GetReservation(int reservationID)
+        {
+            Reservation reserv = ReservationDAO.GetReservation(reservationID);
+            Console.WriteLine(reserv);
         }
 
     }

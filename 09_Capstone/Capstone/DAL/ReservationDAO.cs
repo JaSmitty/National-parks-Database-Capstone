@@ -17,6 +17,45 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
+        public Reservation GetReservation(int reservation_ID)
+        {
+            Reservation reservation = new Reservation();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("Select * from reservation where reservation_id = @reservation_id", conn);
+                    cmd.Parameters.AddWithValue("@reservation_id", reservation_ID);
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    rdr.Read();
+                    reservation = ConvertReadertoReservation(rdr);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("An error occurred communicating with the database. ");
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+            return reservation;
+        }
+
+        private Reservation ConvertReadertoReservation(SqlDataReader rdr)
+        {
+            Reservation reservation = new Reservation();
+            reservation.Reservation_Id = Convert.ToInt32(rdr["reservation_id"]);
+            reservation.Site_Id = Convert.ToInt32(rdr["site_id"]);
+            reservation.Name = Convert.ToString(rdr["name"]);
+            reservation.From_Date = Convert.ToString(rdr["from_date"]);
+            reservation.To_Date = Convert.ToString(rdr["to_date"]);
+            reservation.Create_Date = Convert.ToString(rdr["create_date"]);
+
+            return reservation;
+        }
+
         public int MakeReservation(Reservation reservation)
         {
             int reservationId = 0;
