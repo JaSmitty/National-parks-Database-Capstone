@@ -37,7 +37,13 @@ namespace Capstone.Models
 
         public override string ToString()
         {
-            return $" ID: {Campground_Id} |Name: {Name,-20} |  Open: {MonthNumberToName(Open_From_Mm)} -- {MonthNumberToName(Open_To_Mm)} |  Daily Fee: {Daily_Fee:C}|";
+            return $"{Campground_Id,-4}| {Name,-30}| {MonthNumberToName(Open_From_Mm)} -- {MonthNumberToName(Open_To_Mm)}| {Daily_Fee:C}";
+        }
+
+        public static string GetHeader()
+        {
+            return $@"{"ID",-4} {"Name", -30}   {"Open Months", -20} {"Daily Fee",-6}";
         }
     }
+
 }

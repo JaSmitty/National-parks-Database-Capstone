@@ -116,6 +116,7 @@ namespace CLI
         {
             IList<Campground> campgrounds = CampgroundDAO.GetCampgroundByParkId(park_id);
 
+            Console.WriteLine(Campground.GetHeader());
             foreach (Campground campground in campgrounds)
             {
                 Console.WriteLine(campground);

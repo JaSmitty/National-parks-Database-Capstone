@@ -17,12 +17,12 @@ namespace Capstone.Models
         public override string ToString() // TODO Fix this formatting
         {
             
-            return $"|{Site_Id,-5}| {Max_Occupancy,-15}| {(Accessible ? "Yes" : "No"),-10}|{RvLengthConverter(Max_Rv_Length),-15}| {(Utilities ? "Yes" : "N/A"),-5}|";
+            return $"|{Site_Id,-5}|   {Max_Occupancy,-15}| {(Accessible ? "Yes" : "No"),-10}|    {RvLengthConverter(Max_Rv_Length),-13}|   {(Utilities ? "Yes" : "N/A"),-8}| ";
         }
 
         public static string GetHeader()
         {
-            return $@"{"Site Id",-5} {"Max Occupancy",-15} {"Accessible?",-10} {"Max Rv Length",-15} {"Utilities",-5} {"Cost",-5}" ;
+            return $@"{"Site Id",-5}   {"Max Occupancy",-15} {"Accessible?",-10}   {"Max Rv Length",-13}   {"Utilities",-8}   {"Cost"}" ;
         }
         public string RvLengthConverter(int numberToBeConverted)
         {
