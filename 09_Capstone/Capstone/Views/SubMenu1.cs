@@ -52,8 +52,11 @@ namespace CLI
                         int totalStay = GetTotalStayLength(arrivalDate, departureDate);
                         GetCampgrounds(reservationParkId, totalStay);
 
-                        int campgroundId = GetInteger("Which campground (enter 0 to cancel)?   ");
-
+                        int campgroundId = GetInteger("Which campground (enter 0 to cancel)?: ");
+                        if (campgroundId == 0)
+                        {
+                            break;
+                        }
 
 
                         int siteCount = GetAvailableSites(campgroundId, arrivalDate, departureDate);
@@ -64,7 +67,11 @@ namespace CLI
                             break;
                         }
 
-                        int siteReserved = GetInteger("Which site would you like to reserve?: ");
+                        int siteReserved = GetInteger("Which site would you like to reserve (enter 0 to cancel)?: ");
+                        if (siteReserved == 0)
+                        {
+                            break;
+                        }
                         string reservationName = GetString("What should the name of the reservation be under?");
 
                         int confirmationNumber = MakingTheRes(reservationName, siteReserved, arrivalDate, departureDate);
@@ -77,8 +84,9 @@ namespace CLI
                     return true;
                     case "2":
                     Console.Clear();
-                    int reserveID = GetInteger("Please enter the Confirmation number you recieved: ");
-                    GetReservation(reserveID);
+                    int reserveID = GetInteger("Please enter the confirmation number you recieved: ");
+                    string reservName = GetString("Please enter the name under the reservation: "); //TODO Bug will crash if not in the database
+                    GetReservation(reserveID, reservName);
                     Pause("");
                     return false;
             }
@@ -152,9 +160,9 @@ namespace CLI
             return totalStay;
         }
 
-        private void GetReservation(int reservationID)
+        private void GetReservation(int reservationID, string name)
         {
-            Reservation reserv = ReservationDAO.GetReservation(reservationID);
+            Reservation reserv = ReservationDAO.GetReservation(reservationID, name);
             Console.WriteLine(reserv);
         }
 

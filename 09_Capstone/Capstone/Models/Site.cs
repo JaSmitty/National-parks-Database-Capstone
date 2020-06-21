@@ -18,5 +18,7 @@ namespace Capstone.Models
         {
             return $"SiteID: {Site_Id} Occupancy: {Max_Occupancy} Accesible: {Accessible} MaxRvLength{Max_Rv_Length} Utilities: {Utilities}";
         }
+
+
     }
 }

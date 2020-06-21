@@ -17,7 +17,7 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
-        public Reservation GetReservation(int reservation_ID)
+        public Reservation GetReservation(int reservation_ID, string name)
         {
             Reservation reservation = new Reservation();
             try
@@ -26,8 +26,9 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("Select * from reservation where reservation_id = @reservation_id", conn);
+                    SqlCommand cmd = new SqlCommand("Select * from reservation where reservation_id = @reservation_id and name = @name", conn);
                     cmd.Parameters.AddWithValue("@reservation_id", reservation_ID);
+                    cmd.Parameters.AddWithValue("@name", name);
 
                     SqlDataReader rdr = cmd.ExecuteReader();
                     rdr.Read();
