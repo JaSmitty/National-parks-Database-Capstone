@@ -23,8 +23,8 @@ namespace CLI
         
         protected override void SetMenuOptions()
         {
-            this.menuOptions.Add("1", "View campgrounds");
-            this.menuOptions.Add("2", "Search for a Reservation");
+            this.menuOptions.Add("1", "View campgrounds and make a reservation");
+            this.menuOptions.Add("2", "Search for an existing reservation");
             this.menuOptions.Add("B", "Back to Main Menu");
             this.quitKey = "B";
         }
@@ -50,7 +50,7 @@ namespace CLI
                         string arrivalDate = GetString("What is the arrival date? (mm/dd/yyyy)  ");
                         string departureDate = GetString("What is the departure date? (mm/dd/yyyy)  ");
                         int totalStay = GetTotalStayLength(arrivalDate, departureDate);
-                        GetCampgrounds(reservationParkId, totalStay);
+                        GetCampgrounds(reservationParkId);
 
                         int campgroundId = GetInteger("Which campground (enter 0 to cancel)?: ");
                         if (campgroundId == 0)
@@ -59,7 +59,7 @@ namespace CLI
                         }
 
 
-                        int siteCount = GetAvailableSites(campgroundId, arrivalDate, departureDate);
+                        int siteCount = GetAvailableSites(campgroundId, arrivalDate, departureDate, reservationParkId, totalStay);
                         if (siteCount == 0)
                         {
                             Console.WriteLine("Sorry, no sites were found!");
@@ -112,28 +112,37 @@ namespace CLI
             ResetColor();
         }
 
-        private void GetCampgrounds(int park_id, int totalStay)
+        private void GetCampgrounds(int park_id)
         {
             IList<Campground> campgrounds = CampgroundDAO.GetCampgroundByParkId(park_id);
 
             foreach (Campground campground in campgrounds)
             {
-                decimal totalCost = (decimal)(totalStay) * campground.Daily_Fee;
-                Console.WriteLine($"{campground} Total Cost: {totalCost}");
+                Console.WriteLine(campground);
             }
+  
         }
-        private int GetAvailableSites(int campgroundId, string arrivalDate, string departureDate)
+        private int GetAvailableSites(int campgroundId, string arrivalDate, string departureDate, int park_id, int totalStay)
         {
             IList<Site> sites = SiteDAO.ReturnAvailableSites(campgroundId, arrivalDate, departureDate);
-
+            IList<Campground> campgrounds = CampgroundDAO.GetCampgroundByParkId(park_id);
+            decimal totalCost = 0;
+            foreach (Campground campground in campgrounds)
+            {
+               totalCost = (decimal)(totalStay) * campground.Daily_Fee;
+                
+            }
             int sitesCount = sites.Count;
             if (sitesCount == 0)
             {
                 return sitesCount;
             }
+            Console.WriteLine(Site.GetHeader());
             foreach (Site site in sites)
             {
-                Console.WriteLine(site);
+                
+                Console.WriteLine($"{site}{totalCost:C}");
+                
             }
             return sitesCount;
         }
@@ -159,6 +168,7 @@ namespace CLI
             int totalStay = Convert.ToInt32((depatTime - arrivalTime).TotalDays);
             return totalStay;
         }
+        
 
         private void GetReservation(int reservationID, string name)
         {

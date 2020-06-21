@@ -65,9 +65,9 @@ namespace Capstone.DAL
             site.Campground_Id = Convert.ToInt32(rdr["campground_id"]);
             site.Site_Number = Convert.ToInt32(rdr["site_number"]);
             site.Max_Occupancy = Convert.ToInt32(rdr["max_occupancy"]);
-            site.Accessible = Convert.ToInt32(rdr["Accessible"]);
+            site.Accessible = Convert.ToBoolean(rdr["Accessible"]);
             site.Max_Rv_Length = Convert.ToInt32(rdr["max_rv_length"]);
-            site.Utilities = Convert.ToInt32(rdr["Utilities"]);
+            site.Utilities = Convert.ToBoolean(rdr["Utilities"]);
 
             return site;
         }

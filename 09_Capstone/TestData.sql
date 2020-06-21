@@ -6,7 +6,7 @@ Begin transaction
 	Delete from site
 	Delete from campground
 	Delete from park
-	
+	select * from reservation
 -- Insert some test parks
 insert into park (name, location, establish_date, area, visitors, description)
 values ('Test Park1', 'Nowhere', '1900-01-01', 20000, 1000, 'A Park That Is Nowhere')
